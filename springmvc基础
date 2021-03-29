@@ -1,0 +1,82 @@
+什么是mvc，什么是springmvc
+mvc也就是  model view controller 最早时将这些操作都交给了jsp/java bean做，那么逐渐造成后端要懂前端，jsp和html杂糅在一起，JSP 和 Java Bean 之间严重耦合
+而且后端写完才轮到前端，后端也依赖前端的回馈，效率低
+那么解决问题就是再加一层，如果不行就再加一层
+后来在javaweb中  Servlet + JSP + Java Bean 这样的形式
+首先用户的请求会到达 Servlet，然后根据请求调用相应的 Java Bean，并把所有的显示结果交给 JSP 去完成，这样的模式我们就称为 MVC 模式
+
+model
+业务处理；service
+数据持久层 dao
+
+
+view 
+展示数据
+提供链接  发起servlet请求   a,form,img
+
+
+controller
+接受用户的请求   req session
+交给业务层处理
+视图跳转
+
+为了迎合nosql，基于java的轻量级框架springmvc出现了，通过把Model，View，Controller分离
+并框架主要由 DispatcherServlet、处理器映射、控制器、视图解析器、视图组成
+是spring的一个子框架，当然拥有spring的特性，如依赖注入。
+在 Service 下可以通过 Spring 的声明式事务操作数据访问层，而在业务层上还允许我们访问 NoSQL 
+
+
+=============================================================================================
+参考
+
+
+SpringMVC的流程？
+
+（1）用户发送请求至前端控制器DispatcherServlet；
+（2）DispatcherServlet收到请求后，调用HandlerMapping处理映射器，请求获取Handler；
+（3）处理映射器根据请求url找到具体的处理器Handler，生成处理器对象及处理器拦截器(如果有则生成)，一并返回给DispatcherServlet；
+（4）DispatcherServlet 调用 HandlerAdapter处理器适配器，请求执行Handler；
+（5）HandlerAdapter 经过适配调用具体处理器进行处理业务逻辑；
+（6）Handler执行完成返回ModelAndView；
+（7）HandlerAdapter将Handler执行结果ModelAndView返回给DispatcherServlet；
+（8）DispatcherServlet将ModelAndView传给ViewResolver视图解析器进行解析；
+（9）ViewResolver解析后返回具体View；
+（10）DispatcherServlet对View进行渲染视图（即将模型数据填充至视图中）
+（11）DispatcherServlet响应用户。
+
+
+Springmvc的优点:
+
+（1）可以支持各种视图技术，而不仅仅局限于JSP；
+
+（2）与Spring框架集成（如IoC容器、AOP等）；
+
+（3）清晰的角色分配：前端控制器(dispatcherServlet) ，请求到处理器映射（handlerMapping)，处理器适配器（HandlerAdapter)，视图解析器（ViewResolver）。
+
+（4） 支持各种请求资源的映射策略。
+
+SpringMVC怎么样设定重定向和转发的？
+
+（1）转发：在返回值前面加"forward:"，譬如"forward:user.do?name=method4"
+
+（2）重定向：在返回值前面加"redirect:"，譬如"redirect:http://www.baidu.com"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+————————————————
+版权声明：本文为CSDN博主「张维鹏」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/a745233700/article/details/80963758
+
+
+
