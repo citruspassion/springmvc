@@ -1,0 +1,112 @@
+引用 https://blog.csdn.net/wchengsheng/article/details/79929330?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_baidulandingword-2&spm=1001.2101.3001.4242
+
+SpringMvc的控制器是不是单例模式,如果是,有什么问题,怎么解决？
+答：是单例模式,所以在多线程访问的时候有线程安全问题,不要用同步,会影响性能的,解决方案是在控制器里面不能写字段。
+
+==============================================================
+7、如果你也用过struts2.简单介绍下springMVC和struts2的区别有哪些?
+答： 
+
+很可惜我没用过
+ 1）springmvc的入口是一个servlet即前端控制器，而struts2入口是一个filter过虑器。
+
+ 2）springmvc是基于方法开发(一个url对应一个方法)，请求参数传递到方法的形参，可以设计为单例或多例(建议单例)，struts2是基于类开发，传递参数是通过类的属性，只能设计为多例。
+
+ 3）Struts采用值栈存储请求和响应的数据，通过OGNL存取数据，springmvc通过参数解析器是将request请求内容解析，并给方法形参赋值，将数据和视图封装成ModelAndView对象，最后又将ModelAndView中的模型数据通过reques域传输到页面。Jsp视图解析器默认使用jstl。
+
+
+SpingMvc中的控制器的注解一般用那个,有没有别的注解可以替代？
+答：一般用@Conntroller注解,表示是表现层,不能用用别的注解代替。
+
+@Controller
+Controller 负责处理由DispatcherServlet 分发的请求，它把用户请求的数据经过业务处理层处理之后封装成一个Model ，然后再把该Model 返回给对应的View 进行展示
+@Controller 用于标记在一个类上
+处理器将会扫描使用了该注解的类的方法，
+并检测该方法是否使用了@RequestMapping 注解。@Controller 只是定义了一个控制器类，而使用@RequestMapping 注解的方法才是真正处理请求的处理器
+
+Spring 才能认识它
+
+<!--方式一-->
+<bean class="com.host.app.web.controller.MyController"/>配置文件中定义MyController 的bean 对象
+<!--方式二-->
+< context:component-scan base-package = "com.host.app.web" />扫包
+
+
+
+
+
+@RequestMapping
+
+RequestMapping是一个用来处理请求地址映射的注解，可用于类或方法上。用于类上，表示类中的所有响应请求的方法都是以该地址作为父路径。
+
+1、 value， method；
+
+value：     指定请求的实际地址，指定的地址可以是URI Template 模式（后面将会说明）；
+
+method：  指定请求的method类型， GET、POST、PUT、DELETE等；
+
+2、consumes，produces
+
+consumes： 指定处理请求的提交内容类型（Content-Type），例如application/json, text/html;
+
+produces:    指定返回的内容类型，仅当request请求头中的(Accept)类型中包含该指定类型才返回；
+
+3、params，headers
+
+params： 指定request中必须包含某些参数值是，才让该方法处理。
+
+headers： 指定request中必须包含某些指定的header值，才能让该方法处理请求。
+
+怎么样把某个请求映射到特定的方法上面？
+答：直接在方法上面加上注解@RequestMapping,并且在这个注解里面写上要拦截的路径
+
+如果在拦截请求中,我想拦截get方式提交的方法,怎么配置？
+答：可以在@RequestMapping注解里面加上method=RequestMethod.GET
+
+SpringMvc中函数的返回值是什么？
+答：返回值可以有很多类型,有String, ModelAndView,当一般用String比较好。
+
+SpringMvc中有个类把视图和数据都合并的一起的,叫什么？
+答：叫ModelAndView。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+————————————————
+版权声明：本文为CSDN博主「一味前行」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_30725371/article/details/80054633
