@@ -1,0 +1,16 @@
+<mvc:default-servlet-handler />
+一般处理映射往往带有.do之类的风格
+这就决定了请求URL必须是一个带后缀的URL，而无法采用真正的REST风格的URL。
+
+如果将DispatcherServlet请求映射配置为"/"，则Spring MVC将捕获Web容器所有的请求，包括静态资源的请求，
+Spring MVC会将它们当成一个普通请求处理，因此找不到对应处理器将导致错误
+
+
+这样的话我们可以选择使用<mvc:default-servlet-handler />
+它会像一个检查员，对进入DispatcherServlet的URL进行筛查，
+如果发现是静态资源的请求，就将该请求转由Web应用服务器默认的Servlet处理，
+如果不是静态资源的请求，才由DispatcherServlet继续处理。
+这是一种将静态资源交还给web的方法
+
+除此之外我们还可以使用spring自己提供的处理静态资源的方法
+<mvc:resources location="/,classpath:/META-INF/publicResources/" mapping="/resources/**"/>
