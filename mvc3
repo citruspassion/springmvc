@@ -1,0 +1,68 @@
+@ResponseBody
+将java对象转换为json
+在使用此注解之后不会再走视图处理器，而是直接将数据写入到输入流中
+因为一般情况我们@RequestMapping返回值通常解析为跳转路径
+而再使用过@ResonseBody后不再是返回结果不会被解析为跳转路径，而是直接写入 HTTP response body 中
+
+
+两种用法
+1.
+@RequestMapping("/login")
+@ResponseBody
+public Object login(String name, String password, HttpSession session) {
+	user = userService.checkLogin(name, password);
+	session.setAttribute("user", user);
+	return new JsonResult(user);
+}
+2.
+@RequestMapping(value = "/login")
+@ResponseBody
+
+public User login(@RequestBody User user) {   
+
+    return user;    
+
+
+
+@RestController
+等于@ResponseBody ＋ @Controller
+
+
+
+
+
+
+@Controller
+public class add {
+    @RequestMapping(value = "/test1/{a}/{b}",method = RequestMethod.DELETE)
+
+
+    public  String test1(@PathVariable int a,@PathVariable int b, Model model){
+        model.addAttribute("msg","keika"+a+b);
+        return  "test1";
+    }
+
+}
+@Controller
+public class testJson {
+    @RequestMapping("/t")
+    @ResponseBody//就不会走视图解析器，会直接返回一个字符串
+    public  String json(){
+   User user=new User(1,"网站");
+
+
+        return  user.toString();
+    }
+    @RequestMapping("/b")
+    @ResponseBody//就不会走视图解析器，会直接返回一个字符串
+    public  String json1() throws JsonProcessingException {
+        User user=new User(1,"网站");
+        ObjectMapper objectMapper=new ObjectMapper();
+        String s = objectMapper.writeValueAsString(user);
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        objectMapper.setDateFormat(format);
+
+        return s;
+    }
+}
