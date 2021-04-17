@@ -1,0 +1,6 @@
+<!--    过滤器与拦截器
+过滤器 serlvet规范中的一部分，任何java web都可以使用
+再url-pattern配置了/*可以对所有访问的资源进行拦截
+拦截器 aop思想的具体应用
+拦截器springmvc自己的，只能mvc框架用
+只会拦截访问的控制器方法，如果html/css/js/image不会拦截-->
