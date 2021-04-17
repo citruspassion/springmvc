@@ -4,3 +4,48 @@
 拦截器 aop思想的具体应用
 拦截器springmvc自己的，只能mvc框架用
 只会拦截访问的控制器方法，如果html/css/js/image不会拦截-->
+
+
+<context:component-scan base-package="com.xiao.controller"/>
+    <mvc:interceptors>
+        <mvc:interceptor>
+<!--            包括这个请求下的所有请求-->
+            <mvc:mapping path="/**"/>
+            <bean class="com.xiao.config.intercetor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    package com.xiao.config;
+
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class intercetor  implements HandlerInterceptor {
+    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+      //处理前
+        return false;
+        //return true 就会放行  指向下一个拦截器
+        //return false  就到此为止，不到下一个拦截器
+    }
+
+    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
+    //处理后
+    }
+
+    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
+//清理
+    }
+}
